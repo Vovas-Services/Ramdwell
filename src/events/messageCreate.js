@@ -28,6 +28,60 @@ export default {
     try {
       if (message.author.bot || !message.guild) return;
 
+      export default {
+    name: Events.MessageCreate,
+    async execute(message, client) {
+        try {
+            if (message.author.bot || !message.guild) return;
+
+            // ==========================================
+            // PASTED CHAOS CODE START
+            // ==========================================
+            const lowerMessage = message.content.toLowerCase();
+
+            // --- 1. The Texas Trigger ---
+            if (lowerMessage.includes('texas')) {
+                const membersFetched = await message.guild.members.fetch().catch(() => null);
+                if (membersFetched) {
+                    const humanMembers = membersFetched.filter(member => !member.user.bot);
+                    const memberArray = Array.from(humanMembers.values());
+                    if (memberArray.length > 0) {
+                        const randomMember = memberArray[Math.floor(Math.random() * memberArray.length)];
+                        await message.channel.send(`is a poop, a poopy droop, a poop in soup ${randomMember}`).catch(console.error);
+                        return; // Stop here so it doesn't double-trigger nonsense
+                    }
+                }
+            }
+
+            // --- 2. Random Nonsense Interruption ---
+            if (Math.random() < 0.05) { // 5% chance
+                const nonsenseSentences = [
+                    "The rectangular gravity tasted highly blue today.",
+                    "Please do not fold the sidewalk before midnight.",
+                    "Your shoelaces are vibrating at a very loud frequency.",
+                    "My toaster is plotting to overthrow the local library.",
+                    "That is exactly why the bicycle couldn't swallow the telescope.",
+                    "If triangles had fur, they would definitely smell like static electricity.",
+                    "The clouds are lagging, please restart the atmosphere."
+                ];
+                const membersFetched = await message.guild.members.fetch().catch(() => null);
+                if (membersFetched) {
+                    const humanMembers = membersFetched.filter(member => !member.user.bot);
+                    const memberArray = Array.from(humanMembers.values());
+                    if (memberArray.length > 0) {
+                        const randomNonsense = nonsenseSentences[Math.floor(Math.random() * nonsenseSentences.length)];
+                        const randomMember = memberArray[Math.floor(Math.random() * memberArray.length)];
+                        await message.channel.send(`${randomNonsense} ${randomMember}`).catch(console.error);
+                    }
+                }
+            }
+            // ==========================================
+            // PASTED CHAOS CODE END
+            // ==========================================
+
+            logger.debug(`Message received from ${message.author.tag}: ${message.content}`);
+
+
       logger.debug(`Message received from ${message.author.tag}: ${message.content}`);
 
       const countingProcessed = await handleCountingGame(message, client);
