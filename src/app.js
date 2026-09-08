@@ -18,6 +18,24 @@ import { shutdownMusic } from './services/music/playerHandler.js';
 import pkg from '../package.json' with { type: 'json' };
 import { EXPECTED_SCHEMA_VERSION, EXPECTED_SCHEMA_LABEL } from './config/database/schemaVersion.js';
 
+// ... lines 1 to 19 are your imports ...
+import { EXPECTED_SCHEMA_VERSION, EXPECTED_SCHEMA_LABEL } from './config/database/schemaVersion.js';
+
+// === PASTE ANTI-CRASH CODE HERE ===
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('[Anti-Crash] Unhandled Rejection:', reason);
+});
+process.on('uncaughtException', (err, origin) => {
+    console.error('[Anti-Crash] Uncaught Exception:', err);
+});
+// ==================================
+
+class TitanBot extends Client {
+    constructor() {
+        super({
+// ... the rest of your file continues below ...
+
+
 class TitanBot extends Client {
   constructor() {
     super({
